@@ -7,40 +7,39 @@ import json
 import requests
 #user_code = "2CBFB2C5A90835F8AA6A98A02C964A99"
 
-reco = []
+reco = [None, None, None]
 
-def get_prods():
-    with open("media/products.json") as f:
-        prods = json.load(f)
+with open("media/products.json") as f:
+    prods = json.load(f)
+
+def get_reco():
     global reco
-    reco = []
+    reco = [None, None, None]
     for prod in prods:
         if prods[prod]["subAxisName"] == "FACE MAKEUP":
-            reco.append(prods[prod])
+            reco[0] = prod
             break
     for prod in prods:
         if prods[prod]["subAxisName"] == "EYE MAKEUP":
-            reco.append(prods[prod])
+            reco[1] = prod
             break
     for prod in prods:
         if prods[prod]["subAxisName"] == "LIP MAKEUP":
-            reco.append(prods[prod])
+            reco[2] = prod
             break
     return reco
 
 def recommendations(request, user):
-    reco = get_prods()
+    reco = get_reco()
     return HttpResponse(json.dumps(reco))
 
 def new_prod(request, idx):
     global reco
-    subAxisName = reco[idx]["subAxisName"]
-    productName = reco[idx]["productName"]
-    with open("media/products.json") as f:
-        prods = json.load(f)
-    for prod in prods:
-        if prods[prod]["subAxisName"] == subAxisName and prods[prod] != productName:
-            reco[idx] = prods[prod]
+    if idx < len(reco) and reco[idx] != "" and reco[idx] != None:
+        subAxisName = prods[reco[idx]]["subAxisName"]
+        for prod in prods:
+            if prods[prod]["subAxisName"] == subAxisName and prod != reco[idx]:
+                reco[idx] = prod
     return HttpResponse(json.dumps(reco))
 
 def index(request):
