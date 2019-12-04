@@ -30,7 +30,7 @@ def get_prods():
 
 def recommendations(request, user):
     reco = get_prods()
-    return HttpResponse(reco)
+    return HttpResponse(json.dumps(reco))
 
 def new_prod(request, idx):
     global reco
@@ -41,7 +41,7 @@ def new_prod(request, idx):
     for prod in prods:
         if prods[prod]["subAxisName"] == subAxisName and prods[prod] != productName:
             reco[idx] = prods[prod]
-    return HttpResponse(reco)
+    return HttpResponse(json.dumps(reco))
 
 def index(request):
     return HttpResponse("App index")

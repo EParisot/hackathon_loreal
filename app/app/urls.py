@@ -27,6 +27,7 @@ urlpatterns = [
     path("user/<str:user>", views.recommendations, name="user"),
     path("new_prod/<int:idx>", views.new_prod, name="new_prod"),
     path("prods/", include("prods.urls")),
+    path("webhook/", include("voice.urls"))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
