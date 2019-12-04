@@ -24,7 +24,7 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path("", views.index, name="home"),
-    path("user/<str:user>", views.Recommendation.as_view(), name="user"),
+    path("user/<str:user>", views.recommendations, name="user"),
     path("new_prod/<str:subAxisName>/<str:eanCode>", views.new_prod, name="new_prod"),
     path("prods/", include("prods.urls")),
 ]
