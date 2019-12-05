@@ -4,12 +4,12 @@
     {% for prod in recos %}
         <div class="prod">
             	<img src="", alt="prodImg"></img>
-		{% with s="prods/"|add:prod.eanCode %}
-		<h2><a href={# s #}>{{ prod.productName }}</a></h2>
+		{% with "/prods/"|add:prod.eanCode as s%}
+		<h2><a href={{ s }}>{{ prod.productName }}</a></h2>
 		{% endwith %}
-		{% with s=forloop.counter0|stringformat:"s" %}
-		{% with "new_prods/"|add:s as new_prod %}
-		<button type="button"><a href={# new_prod #}></a></button>
+		{% with forloop.counter0|stringformat:"s" as s %}
+		{% with "/new_prod/"|add:s as new_prod %}
+		<button type="button"><a href={{ new_prod }}><img src="", alt="but"></img></a></button>
 		{% endwith %}
 		{% endwith %}
 		<button type="button"><a href=""></a></button>
