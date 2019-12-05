@@ -3,7 +3,17 @@
 {% block content %}
     {% for prod in recos %}
         <div class="prod">
-            <h2><a href="">{{ prod }}</a></h2>
+            	<img src="", alt="prodImg"></img>
+		{% with s="prods/"|add:prod.eanCode %}
+		<h2><a href={# s #}>{{ prod.productName }}</a></h2>
+		{% endwith %}
+		{% with s=forloop.counter0|stringformat:"s" %}
+		{% with "new_prods/"|add:s as new_prod %}
+		<button type="button"><a href={# new_prod #}></a></button>
+		{% endwith %}
+		{% endwith %}
+		<button type="button"><a href=""></a></button>
+        </div>
         </div>
     {% endfor %}
 {% endblock %}

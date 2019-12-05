@@ -17,15 +17,15 @@ def get_reco():
     reco = [None, None, None]
     for prod in prods:
         if prods[prod]["subAxisName"] == "FACE MAKEUP":
-            reco[0] = prod
+            reco[0] = {"eanCode": prod, "productName":prods[prod]["productName"]}
             break
     for prod in prods:
         if prods[prod]["subAxisName"] == "EYE MAKEUP":
-            reco[1] = prod
+            reco[1] = {"eanCode": prod, "productName":prods[prod]["productName"]}
             break
     for prod in prods:
         if prods[prod]["subAxisName"] == "LIP MAKEUP":
-            reco[2] = prod
+            reco[2] = {"eanCode": prod, "productName":prods[prod]["productName"]}
             break
     return reco
 
@@ -37,10 +37,10 @@ def recommendations(request, user):
 def new_prod(request, idx):
     global reco
     if idx < len(reco) and reco[idx] != "" and reco[idx] != None:
-        subAxisName = prods[reco[idx]]["subAxisName"]
+        subAxisName = prods[reco[idx]["eanCode"]]["subAxisName"]
         for prod in prods:
             if prods[prod]["subAxisName"] == subAxisName and prod != reco[idx]:
-                reco[idx] = prod
+                reco[idx] = {"eanCode": prod, "productName":prods[prod]["productName"]}
     #return HttpResponse(json.dumps(reco))
     return render(request, "app/posts_list.html", {"recos": reco})
 
