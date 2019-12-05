@@ -31,7 +31,8 @@ def get_reco():
 
 def recommendations(request, user):
     reco = get_reco()
-    return HttpResponse(json.dumps(reco))
+    #return HttpResponse(json.dumps(reco))
+    return render(request, "app/posts_list.html", {"recos": reco})
 
 def new_prod(request, idx):
     global reco
@@ -40,7 +41,8 @@ def new_prod(request, idx):
         for prod in prods:
             if prods[prod]["subAxisName"] == subAxisName and prod != reco[idx]:
                 reco[idx] = prod
-    return HttpResponse(json.dumps(reco))
+    #return HttpResponse(json.dumps(reco))
+    return render(request, "app/posts_list.html", {"recos": reco})
 
 def index(request):
     return HttpResponse("App index")
