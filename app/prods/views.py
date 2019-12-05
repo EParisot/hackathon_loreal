@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.conf import settings
+from django.shortcuts import render
 
 import json
 import requests
@@ -16,4 +17,5 @@ def get_call(request, kwargs):
 
 def prod_view(request, eanCode):
     product = get_call(request, {"eanCode": eanCode})
-    return HttpResponse(json.dumps(product))
+    return render(request, "prods/base.html", {"product": product})
+    #return HttpResponse(json.dumps(product))
